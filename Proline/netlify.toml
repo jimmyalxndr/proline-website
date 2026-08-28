@@ -5,6 +5,38 @@
 [build.environment]
     NODE_VERSION = "22"
 
+# Keep prolinegroup.au as the single canonical website address. Legacy
+# domains preserve the requested path when permanently redirecting.
+[[redirects]]
+    from = "https://proline-prod.netlify.app/*"
+    to = "https://prolinegroup.au/:splat"
+    status = 301
+    force = true
+
+[[redirects]]
+    from = "https://prolinemetalcladding.com.au/*"
+    to = "https://prolinegroup.au/:splat"
+    status = 301
+    force = true
+
+[[redirects]]
+    from = "https://www.prolinemetalcladding.com.au/*"
+    to = "https://prolinegroup.au/:splat"
+    status = 301
+    force = true
+
+[[redirects]]
+    from = "http://prolinemetalcladding.com.au/*"
+    to = "https://prolinegroup.au/:splat"
+    status = 301
+    force = true
+
+[[redirects]]
+    from = "http://www.prolinemetalcladding.com.au/*"
+    to = "https://prolinegroup.au/:splat"
+    status = 301
+    force = true
+
 [images]
     remote_images = [
         "https?://maps\\.googleapis\\.com/.*",
