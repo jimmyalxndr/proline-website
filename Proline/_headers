@@ -1,0 +1,11 @@
+# Cache rules for all pages+files.
+/*
+    Cache-Control: public
+    Cache-Control: max-age=0
+    Cache-Control: s-maxage=31536000
+    Cache-Control: stale-while-revalidate=31536000
+
+# Restrict Decap CMS.
+/admin*
+    Cache-Control: no-store
+    Basic-Auth: tma:tma

@@ -1,0 +1,180 @@
+---
+import '../style.css';
+import Webfonts from '@layouts/partials/Webfonts.astro';
+import Header from '@layouts/partials/Header.astro';
+import Footer from '@layouts/partials/Footer.astro';
+import Button from '@components/Ui/Components/Forms/Button.vue';
+
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+}
+
+const {
+    title,
+    description = 'Proline delivers premium architectural metal cladding, facade, fabrication and installation solutions across Melbourne.',
+    image = '/assets/homepage/2.jpg',
+} = Astro.props;
+const siteName = 'Proline';
+const isHomePage = Astro.url.pathname === '/';
+const socialImage = new URL(image, Astro.site ?? Astro.url.origin);
+let pageTitle = title;
+if (!isHomePage) {
+    pageTitle = `${title} | ${siteName}`;
+}
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="description"
+            content={description}
+        />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:image" content={socialImage} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{pageTitle}</title>
+        <Webfonts />
+        <!-- Google Tag Manager -->
+        <script>
+            // @ts-nocheck
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js',
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-K8RSXMVB');
+        </script>
+        <!-- End Google Tag Manager -->
+    </head>
+    <body class="text-white">
+        {
+            isHomePage && (
+                <div class="relative h-screen">
+                    <Header class="absolute top-0 z-50 w-full" />
+
+                    <div class="hero relative flex h-full pt-20">
+                        <img
+                            src="/assets/video-thumb.jpg"
+                            alt=""
+                            class="absolute inset-0 h-full w-full object-cover"
+                        />
+                        <div class="pointer-events-none absolute left-0 top-0 h-full w-full overflow-hidden bg-black">
+                            <div class="relative">
+                                <iframe
+                                    src="https://player.vimeo.com/video/1058796048?background=1&autoplay=1&loop=1&mute=1&controls=0"
+                                    allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                                    allowfullscreen
+                                    class="absolute left-1/2 top-1/2 aspect-16/9 min-h-full w-full min-w-[177.77vh] -translate-x-1/2"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="hero-content relative mb-8 flex max-w-3xl flex-col justify-end gap-7 px-6 sm:mb-12 sm:px-10 lg:mb-16 lg:px-20">
+                            <h3 class="hero-eyebrow">Introducing Proline</h3>
+                            <h1 class="max-w-3xl font-khand text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl">
+                                Architectural Metal Cladding and Facade
+                                Specialists Across Melbourne & Sydney
+                            </h1>
+                            <div class="flex flex-wrap gap-5">
+                                <Button
+                                    url="/contact"
+                                    label="Make an enquiry"
+                                />
+                                <Button url="/about-us" label="What we do" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            )
+        }
+
+        {!isHomePage && <Header class="fixed-header" />}
+        <main class="py-16 font-switzer text-white">
+            <slot />
+        </main>
+
+        <Footer />
+
+        {
+            isHomePage && (
+                <script>
+                    document.addEventListener('DOMContentLoaded', function ()
+                    {window.addEventListener('scroll', function () {
+                        var navHeight = window.innerHeight - 80;
+                        if (window.scrollY > navHeight) {
+                            const header = document.querySelector('header');
+                            if (header) {
+                                header.classList.add('fixed-header');
+                            }
+                        } else {
+                            const header = document.querySelector('header');
+                            if (header) {
+                                header.classList.remove('fixed-header');
+                            }
+                        }
+                    })}
+                    );
+                </script>
+            )
+        }
+        <!-- Google Tag Manager (noscript) -->
+        <noscript
+            ><iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-K8RSXMVB"
+                height="0"
+                width="0"
+                style="display:none;visibility:hidden"></iframe></noscript
+        >
+        <!-- End Google Tag Manager (noscript) -->
+    </body>
+</html>
+
+<style>
+    .hero::after {
+        position: absolute;
+        inset: 0;
+        content: '';
+        background:
+            linear-gradient(90deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.2) 58%, transparent 100%),
+            linear-gradient(0deg, rgba(0, 0, 0, 0.62) 0%, transparent 48%);
+    }
+
+    .hero-content {
+        z-index: 1;
+    }
+
+    .hero-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: #fff;
+        font-size: 0.8rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    .hero-eyebrow::before {
+        width: 2.5rem;
+        height: 2px;
+        content: '';
+        background: #d64829;
+    }
+</style>

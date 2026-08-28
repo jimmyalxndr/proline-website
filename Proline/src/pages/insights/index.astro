@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+import PageHeader from '@components/Ui/Components/PageHeader.vue';
+import Arrow from '@components/Ui/Icons/Arrow.vue';
+
+const pageTitle = 'Insights';
+const insights = (await getCollection('insights')).sort(
+    (a, b) =>
+        new Date(b.data.publishedDate).getTime() -
+        new Date(a.data.publishedDate).getTime()
+);
+
+const formatDate = (date: string | Date) =>
+    new Intl.DateTimeFormat('en-AU', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    }).format(new Date(date));
+---
+
+<Layout
+    title={pageTitle}
+    description="Proline news, project stories, company updates and insights from our team."
+>
+    <PageHeader title={pageTitle} />
+    <Content>
+        <section class="py-20 md:py-28">
+            <div class="mb-14 max-w-2xl space-y-5">
+                <h2>News, progress and the stories behind our work.</h2>
+                <p>
+                    Explore project updates, company news and perspectives from
+                    the people delivering Proline projects.
+                </p>
+            </div>
+
+            <div class="grid gap-x-6 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+                {
+                    insights.map(insight => (
+                        <article class="group">
+                            <a
+                                href={`/insights/${insight.slug}/`}
+                                class="block overflow-hidden bg-white/[0.03]"
+                            >
+                                <div class="aspect-[4/3] overflow-hidden">
+                                    <img
+                                        src={insight.data.featuredImage}
+                                        alt={insight.data.title}
+                                        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                                    />
+                                </div>
+                                <div class="border-t border-proline-red p-7">
+                                    <div class="mb-5 flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase tracking-[0.14em] text-white/55">
+                                        <span class="text-proline-red">
+                                            {insight.data.category}
+                                        </span>
+                                        <time datetime={String(insight.data.publishedDate)}>
+                                            {formatDate(insight.data.publishedDate)}
+                                        </time>
+                                    </div>
+                                    <h2 class="mb-4 text-3xl">
+                                        {insight.data.title}
+                                    </h2>
+                                    <p>{insight.data.description}</p>
+                                    <span class="mt-7 inline-flex items-center gap-3 font-khand text-lg font-semibold text-proline-red">
+                                        Read full story
+                                        <Arrow class="transition-transform duration-300 group-hover:translate-x-2" />
+                                    </span>
+                                </div>
+                            </a>
+                        </article>
+                    ))
+                }
+            </div>
+        </section>
+    </Content>
+</Layout>

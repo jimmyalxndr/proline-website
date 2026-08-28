@@ -1,0 +1,122 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+import PageHeader from '@components/Ui/Components/PageHeader.vue';
+
+const pageTitle = 'Capability Statements';
+
+const statements = [
+    {
+        title: 'Proline Capability Statement 2026',
+        description:
+            "An overview of Proline's people, systems, services and experience delivering program-critical cladding and facade packages.",
+        pages: 8,
+        cover: '/assets/capability-statements/proline-capability-cover.png',
+        pdf: '/documents/proline-capability-statement-2026.pdf',
+    },
+    {
+        title: 'Proline Modular 2026',
+        description:
+            'Our modular cladding capability: safer, faster facade modules drawn, fabricated and installed in-house.',
+        pages: 5,
+        cover: '/assets/capability-statements/proline-modular-cover.png',
+        pdf: '/documents/proline-modular-2026.pdf',
+    },
+];
+---
+
+<Layout
+    title={pageTitle}
+    description="View Proline's 2026 capability statements covering architectural cladding, facades and modular delivery."
+    image="/assets/capability-statements/proline-capability-cover.png"
+>
+    <PageHeader title={pageTitle} />
+    <Content>
+        <section class="py-20 md:py-28">
+            <div class="mb-16 max-w-3xl space-y-6">
+                <h2>Our capability, experience and delivery approach.</h2>
+                <p class="max-w-2xl text-lg">
+                    Read our complete capability statements online, open them
+                    full-screen, or download a copy for later.
+                </p>
+            </div>
+
+            <div class="grid gap-8 md:grid-cols-2">
+                {
+                    statements.map(statement => (
+                        <a
+                            href={`#${statement.title.toLowerCase().replaceAll(' ', '-')}`}
+                            class="group grid overflow-hidden border border-white/10 bg-white/[0.03] sm:grid-cols-[12rem_1fr]"
+                        >
+                            <div class="overflow-hidden bg-white">
+                                <img
+                                    src={statement.cover}
+                                    alt={`${statement.title} cover`}
+                                    class="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                                />
+                            </div>
+                            <div class="flex flex-col justify-center border-t border-proline-red p-7 sm:border-l sm:border-t-0">
+                                <p class="mb-3 text-xs uppercase tracking-[0.16em] !text-proline-red">
+                                    {statement.pages} pages
+                                </p>
+                                <h2 class="mb-4 text-3xl">{statement.title}</h2>
+                                <p>{statement.description}</p>
+                                <span class="mt-6 text-sm font-semibold uppercase tracking-[0.08em] text-white">
+                                    View document ↓
+                                </span>
+                            </div>
+                        </a>
+                    ))
+                }
+            </div>
+        </section>
+
+        {
+            statements.map(statement => (
+                <section
+                    id={statement.title.toLowerCase().replaceAll(' ', '-')}
+                    class="scroll-mt-24 border-t border-white/15 py-20 md:py-28"
+                >
+                    <div class="mb-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <p class="mb-3 text-xs uppercase tracking-[0.16em] !text-proline-red">
+                                {statement.pages}-page document
+                            </p>
+                            <h2>{statement.title}</h2>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <a
+                                href={statement.pdf}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="inline-flex min-h-11 items-center border border-proline-red px-5 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-proline-red"
+                            >
+                                Open full screen
+                            </a>
+                            <a
+                                href={statement.pdf}
+                                download
+                                class="inline-flex min-h-11 items-center bg-white px-5 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-black transition-colors hover:bg-proline-red hover:text-white"
+                            >
+                                Download PDF
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="overflow-hidden border border-white/15 bg-[#1b1b1b] shadow-2xl shadow-black/40">
+                        <iframe
+                            src={`${statement.pdf}#view=FitH&toolbar=1&navpanes=0`}
+                            title={`${statement.title} PDF viewer`}
+                            loading="lazy"
+                            class="h-[70vh] min-h-[620px] w-full md:h-[85vh] md:min-h-[780px]"
+                        />
+                    </div>
+                    <p class="mt-4 text-sm">
+                        Use the PDF controls to move between pages, zoom, print
+                        or download the document.
+                    </p>
+                </section>
+            ))
+        }
+    </Content>
+</Layout>

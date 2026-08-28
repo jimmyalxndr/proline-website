@@ -1,0 +1,28 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+
+const pageTitle = 'Page not found';
+---
+
+<Layout title={pageTitle}>
+    <Content class="py-40">
+        <h1
+            class="mb-6 text-center text-4xl font-extralight leading-none xs:text-5xl md:text-8xl"
+        >
+            Error 404
+        </h1>
+
+        <h2
+            class="mb-10 text-center text-2xl font-bold leading-none text-fuchsia-300 xs:text-3xl md:text-5xl"
+        >
+            {pageTitle}
+        </h2>
+
+        <p class="text-center text-xl">
+            The page you are looking for has been moved or does not exist.
+            <br />
+            Please check the URL and try again.
+        </p>
+    </Content>
+</Layout>

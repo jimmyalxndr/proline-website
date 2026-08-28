@@ -1,0 +1,83 @@
+---
+import Facebook from '@components/Ui/Icons/Facebook.vue';
+import Instagram from '@components/Ui/Icons/Instagram.vue';
+import Linkedin from '@components/Ui/Icons/Linkedin.vue';
+import { Image } from 'astro:assets';
+import logo from '/src/assets/proline-logo.svg';
+
+const navigation = [
+    { label: 'Home', url: '/' },
+    { label: 'About', url: '/about-us/' },
+    { label: 'Process', url: '/process/' },
+    { label: 'Projects', url: '/projects/' },
+    { label: 'Capabilities', url: '/capability-statements/' },
+    { label: 'Insights', url: '/insights/' },
+    { label: 'Contact', url: '/contact/' },
+];
+---
+
+<footer class="bg-[#050505] px-6 text-white sm:px-10 lg:px-16 xl:px-20">
+    <div class="mx-auto max-w-screen-3xl border-t border-white/25 py-12 md:py-16">
+        <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+            <div class="space-y-7 lg:col-span-4 lg:pr-12">
+                <a href="/" class="inline-block">
+                    <Image alt="Proline" class="h-16 w-auto" src={logo} />
+                </a>
+                <p class="max-w-md text-sm leading-relaxed !text-white/65">
+                    We acknowledge the Traditional Custodians of the lands on
+                    which we operate and recognise their continuing connection
+                    to land, waters and culture. We pay our respects to Elders
+                    past and present.
+                </p>
+            </div>
+
+            <nav aria-label="Footer navigation" class="lg:col-span-2">
+                <p class="mb-5 text-xs font-semibold uppercase tracking-[0.16em] !text-white/40">Explore</p>
+                <ul class="space-y-2.5">
+                    {
+                        navigation.map(item => (
+                            <li>
+                                <a href={item.url} class="text-sm font-semibold uppercase tracking-[0.04em] transition-colors hover:text-proline-red">
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </nav>
+
+            <div class="lg:col-span-3">
+                <p class="mb-5 text-xs font-semibold uppercase tracking-[0.16em] !text-white/40">Visit and contact</p>
+                <address class="space-y-5 text-sm not-italic">
+                    <a href="https://www.google.com/maps/search/?api=1&query=30+Robbins+Cct%2C+Williamstown+North" target="_blank" rel="noopener noreferrer" class="block leading-relaxed transition-colors hover:text-proline-red">
+                        30 Robbins Cct<br />Williamstown North
+                    </a>
+                    <div>
+                        <a href="tel:+61395107257" class="block transition-colors hover:text-proline-red">03 9510 7257</a>
+                        <a href="mailto:info@prolinemetalcladding.com.au" class="block break-words transition-colors hover:text-proline-red">info@prolinemetalcladding.com.au</a>
+                    </div>
+                </address>
+
+                <ul class="mt-7 flex items-center gap-3">
+                    <li><a href="https://www.linkedin.com/company/proline-metal-cladding/" target="_blank" rel="noopener noreferrer" aria-label="Proline on LinkedIn" class="flex items-center justify-center text-[#0A66C2] transition-transform hover:-translate-y-0.5"><Linkedin class="h-9 w-9" /></a></li>
+                    <li><a href="https://www.instagram.com/prolinegroupau" target="_blank" rel="noopener noreferrer" aria-label="Proline on Instagram" class="flex items-center justify-center text-[#E4405F] transition-transform hover:-translate-y-0.5"><Instagram class="h-9 w-9" /></a></li>
+                    <li><a href="https://www.facebook.com/prolinemetalcladding/" target="_blank" rel="noopener noreferrer" aria-label="Proline on Facebook" class="flex items-center justify-center text-[#1877F2] transition-transform hover:-translate-y-0.5"><Facebook class="h-9 w-9" /></a></li>
+                </ul>
+            </div>
+
+            <div class="lg:col-span-3">
+                <p class="mb-5 text-xs font-semibold uppercase tracking-[0.16em] !text-white/40">Start a conversation</p>
+                <h2 class="mb-7 text-3xl leading-tight">Have a project in mind?</h2>
+                <a href="/contact/" class="inline-flex min-h-12 items-center border border-proline-red bg-proline-red px-7 py-3 text-xs font-semibold uppercase tracking-[0.1em] text-white transition-all hover:bg-white hover:text-black">Make an enquiry</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-auto flex max-w-screen-3xl flex-col gap-4 border-t border-white/25 py-5 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-wrap gap-x-5 gap-y-2">
+            <a href="/privacy-policy/" class="transition-colors hover:text-proline-red">Privacy Policy</a>
+            <a href="/terms-and-conditions/" class="transition-colors hover:text-proline-red">Terms & Conditions</a>
+        </div>
+        <p class="!text-white/55">© {new Date().getFullYear()} Proline</p>
+    </div>
+</footer>

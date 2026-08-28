@@ -1,0 +1,164 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getEntry, getCollection } from 'astro:content';
+import { marked } from 'marked';
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+import Arrow from '@components/Ui/Icons/Arrow.vue';
+
+export async function getStaticPaths() {
+    const projects = await getCollection('projects');
+    return projects.map(project => ({
+        params: { slug: project.slug },
+    }));
+}
+
+const projects = (await getCollection('projects')).sort(
+    (a, b) => a.data.order - b.data.order
+);
+
+const project = (await getEntry(
+    'projects',
+    Astro.params.slug as string
+)) as CollectionEntry<'projects'>;
+console.log(projects.length);
+const previous =
+    projects[
+        project.data.order === 0 ? projects.length - 1 : project.data.order - 1
+    ];
+
+const next =
+    projects[
+        project.data.order === projects.length - 1 ? 0 : project.data.order + 1
+    ];
+
+const pageTitle = project?.data?.title;
+// const renderer = new marked.Renderer();
+---
+
+<Layout title={pageTitle}>
+    <Content class="mt-20">
+        <a
+            href="/projects"
+            class="group flex items-center space-x-2 text-proline-red"
+        >
+            <Arrow
+                class="h-5 w-5 rotate-180 transition-transform duration-300 ease-in-out group-hover:-translate-x-2"
+            />
+            <span
+                class="font-khand text-lg font-semibold transition-transform duration-300 ease-in-out group-hover:scale-110"
+                >Back to projects</span
+            >
+        </a>
+
+        <div
+            class:list={[
+                'mt-10',
+                project.data?.featuredVideo &&
+                    'grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)] lg:gap-16',
+            ]}
+        >
+            {
+                project.data?.featuredVideo ? (
+                <iframe
+                    src={project.data.featuredVideo}
+                    width="100%"
+                    title={`${project.data.title} project video`}
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                    allowfullscreen
+                    class="aspect-video w-full border-0"
+                />
+                ) : (
+                    <img
+                        src={project.data.featuredImage}
+                        alt={project.data.title}
+                        class="w-full"
+                    />
+                )
+            }
+
+            <div
+                class:list={[
+                    'max-w-xl space-y-5',
+                    project.data?.featuredVideo ? 'py-4' : 'my-20',
+                ]}
+            >
+                <h1 class="font-khand text-3xl font-bold md:text-4xl">
+                    {project.data.title}
+                </h1>
+                {
+                    project.data.featuredSubtext && (
+                        <p class="font-khand text-lg font-semibold text-proline-red">
+                            {project.data.featuredSubtext}
+                        </p>
+                    )
+                }
+                {
+                    project?.body && (
+                        <div
+                            class="space-y-3"
+                            set:html={marked.parse(project.body ?? '')}
+                        />
+                    )
+                }
+            </div>
+        </div>
+
+        <div class="mt-20 grid gap-5 pb-20 md:grid-cols-2 lg:grid-cols-3">
+            {
+                project.data.featuredImage && (
+                    <div class="odd:lg:col-span-2">
+                        <img
+                            src={project.data.featuredImage}
+                            class="h-full w-full object-cover"
+                            alt=""
+                        />
+                    </div>
+                )
+            }
+            {
+                project.data.additionalImages?.map((image: string) => (
+                    <div class="odd:lg:col-span-2">
+                        <img
+                            src={image}
+                            class="h-full w-full object-cover"
+                            alt={project.data.title}
+                            loading="lazy"
+                        />
+                    </div>
+                ))
+            }
+        </div>
+
+        <div
+            class="my-20 flex justify-between border-t border-proline-red py-10"
+        >
+            <a
+                href={'/projects/' + previous?.slug}
+                class="group flex items-center space-x-2 text-proline-red"
+            >
+                <Arrow
+                    class="h-5 w-5 rotate-180 transition-transform duration-300 ease-in-out group-hover:-translate-x-2"
+                />
+                <span
+                    class="font-khand text-lg font-semibold transition-transform duration-300 ease-in-out group-hover:scale-110"
+                    >Previous - {previous.data.title}</span
+                >
+            </a>
+            <a
+                href={'/projects/' + next?.slug}
+                class="group flex items-center space-x-2 text-proline-red"
+            >
+                <span
+                    class="font-khand text-lg font-semibold transition-transform duration-300 ease-in-out group-hover:scale-110"
+                    >Next - {next.data.title}</span
+                >
+                <Arrow
+                    class="h-5 w-5 transition-transform duration-300 ease-in-out group-hover:translate-x-2"
+                />
+            </a>
+        </div>
+    </Content>
+</Layout>

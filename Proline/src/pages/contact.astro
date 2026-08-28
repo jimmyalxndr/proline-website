@@ -1,0 +1,33 @@
+---
+import Layout from '@layouts/Layout.astro';
+import PageHeader from '@components/Ui/Components/PageHeader.vue';
+import Content from '@layouts/partials/Content.astro';
+import ContactForm from '@components/Ui/Components/Forms/ContactForm.vue';
+const pageTitle = 'Contact Us';
+---
+
+<Layout title={pageTitle}>
+    <PageHeader title={pageTitle} />
+    <Content>
+        <section class="grid gap-12 py-20 md:py-28 lg:grid-cols-2 lg:gap-20">
+            <div class="space-y-8">
+                <h3>Start a conversation</h3>
+                <h2>Ready to take the stress out of your next project?</h2>
+                <p class="max-w-xl">
+                    Tell us what you’re planning and our team will be in touch
+                    to discuss how Proline can help bring it to life.
+                </p>
+                <div class="border-l border-proline-red pl-6 text-sm">
+                    <p>30 Robbins Cct, Williamstown North</p>
+                    <a href="tel:+61395107257" class="block hover:text-proline-red">03 9510 7257</a>
+                    <a href="mailto:info@prolinemetalcladding.com.au" class="block hover:text-proline-red">info@prolinemetalcladding.com.au</a>
+                </div>
+            </div>
+            <ContactForm />
+        </section>
+
+        <section class="pb-20 md:pb-28">
+            <iframe src="https://snazzymaps.com/embed/686105" width="100%" height="440" title="Proline location map" loading="lazy" style="border:none;"></iframe>
+        </section>
+    </Content>
+</Layout>

@@ -1,0 +1,48 @@
+# Build output.
+dist/
+
+# Generated types.
+.astro/
+
+# Test results.
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Dependencies.
+node_modules/
+
+# Logs.
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables.
+.env
+.env.production
+
+# MacOS-specific files.
+.DS_Store
+
+# Jetbrains setting folder.
+.idea/
+
+# MacOS-specific files.
+.DS_Store
+Icon
+
+# Ignore local Netlify dev build files.
+.netlify
+
+# Keep original high-resolution photography local. The website uses the
+# corresponding *-web.jpg files, which are committed and deployed.
+/public/assets/content/projects/methodist-ladies-college-aquatic-centre/Featured.jpg
+/public/assets/content/projects/methodist-ladies-college-aquatic-centre/[0-9].jpg
+/public/assets/content/projects/crowne-plaza-carlton/Featured.jpg
+/public/assets/content/projects/crowne-plaza-carlton/[0-9].jpg
+/public/assets/content/projects/customs-house-melbourne-airport/featured.jpg
+/public/assets/content/projects/customs-house-melbourne-airport/[0-9].jpg
+/public/assets/content/insights/assemble-coburg-mesh-screen-package/featured.jpg
+/public/assets/content/insights/assemble-coburg-mesh-screen-package/[0-9].jpg

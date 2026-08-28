@@ -1,0 +1,329 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+import Arrow from '@components/Ui/Icons/Arrow.vue';
+import Button from '@components/Ui/Components/Forms/Button.vue';
+import { getCollection } from 'astro:content';
+import VideoList from '@components/Ui/Components/VideoList.vue';
+
+const clients = [
+    {
+        name: 'Kapitol',
+        image: '/assets/homepage/clients/kapitol.svg',
+    },
+    {
+        name: 'Mirvac',
+        image: '/assets/homepage/clients/mirvac.png',
+    },
+    {
+        name: 'Lendlease',
+        image: '/assets/homepage/clients/lendlease.svg',
+    },
+    {
+        name: 'Built Environs',
+        image: '/assets/homepage/clients/built-environs.svg',
+    },
+    {
+        name: 'Icon',
+        image: '/assets/homepage/clients/icon.svg',
+    },
+    {
+        name: 'Multiplex',
+        image: '/assets/homepage/clients/multiplex.svg',
+    },
+    {
+        name: 'Built',
+        image: '/assets/homepage/clients/built.png',
+    },
+    {
+        name: 'Laing-Orourke',
+        image: '/assets/homepage/clients/laing-orourke.png',
+    },
+    {
+        name: 'Hacer',
+        image: '/assets/homepage/clients/hacer.avif',
+    },
+    {
+        name: 'Maben',
+        image: '/assets/homepage/clients/maben.svg',
+    },
+    {
+        name: 'SRG Global',
+        image: '/assets/homepage/clients/SRG.jpg',
+    },
+    {
+        name: 'Balmain',
+        image: '/assets/homepage/clients/balmain.png',
+    },
+    {
+        name: 'Alchemy',
+        image: '/assets/homepage/clients/alchemy.svg',
+    },
+    {
+        name: 'Building Engineering',
+        image: '/assets/homepage/clients/Building_Engineering.webp',
+    },
+    {
+        name: 'Brady',
+        image: '/assets/homepage/clients/brady_group_logo.jpeg',
+    },
+    {
+        name: 'Ironside',
+        image: '/assets/homepage/clients/ironside.svg',
+    },
+    {
+        name: '2 Construct',
+        image: '/assets/homepage/clients/2_Construct.svg',
+    },
+    {
+        name: 'Qanstruct',
+        image: '/assets/homepage/clients/Qanstruct.svg',
+    },
+    {
+        name: 'Pelligra',
+        image: '/assets/homepage/clients/pelligra.svg',
+    },
+    {
+        name: 'Mccorkell',
+        image: '/assets/homepage/clients/mccorkell.webp',
+    },
+    {
+        name: 'Hansen Yuncken',
+        image: '/assets/homepage/clients/hansenyuncken.gif',
+    },
+    {
+        name: 'Minesco',
+        image: '/assets/homepage/clients/minesco.jpg',
+    },
+    {
+        name: 'Shape',
+        image: '/assets/homepage/clients/shape.png',
+    },
+    {
+        name: 'Hutchinson',
+        image: '/assets/homepage/clients/hutchinson.jpg',
+    },
+    {
+        name: 'Crema',
+        image: '/assets/homepage/clients/crema.png',
+    },
+    {
+        name: 'AG Coombs',
+        image: '/assets/homepage/clients/ag-coombs.jpg',
+    },
+    {
+        name: 'Kane',
+        image: '/assets/homepage/clients/kane.png',
+    },
+    {
+        name: 'Figurehead',
+        image: '/assets/homepage/clients/figurehead.jpg',
+    },
+];
+
+const featuredProjects = (
+    await getCollection('projects', ({ data }) => data.featured === true)
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout title="Proline">
+    <Content>
+        <section class="flex flex-col items-center gap-12 py-24 md:py-32">
+            <h3>Collaborating with the nation’s largest builders</h3>
+            <div
+                class="grid grid-cols-2 gap-5 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-10"
+            >
+                <!-- {
+                    clients.map(client => (
+                        <div class="flex items-center justify-center">
+                            <img src={client.image} alt={client.name} />
+                        </div>
+                    ))
+                } -->
+                {
+                    (() => {
+                        const columns = 10;
+                        const fullRows = Math.floor(clients.length / columns);
+                        const lastRowCount = clients.length % columns;
+                        const fullRowItems = clients.slice(
+                            0,
+                            fullRows * columns
+                        );
+                        const lastRowItems = clients.slice(fullRows * columns);
+
+                        return [
+                            fullRowItems.map(client => (
+                                <div class="flex min-h-24 items-center justify-center border border-white/10 bg-white/[0.03] p-4 transition-colors duration-300 hover:bg-white/[0.07]">
+                                    <img
+                                        src={client.image}
+                                        alt={client.name}
+                                        class="max-h-20 object-contain"
+                                    />
+                                </div>
+                            )),
+                            lastRowCount > 0 && (
+                                <div class="col-span-full grid grid-cols-2 justify-center gap-5 md:flex">
+                                    {lastRowItems.map(client => (
+                                        <div class="flex min-h-24 min-w-28 items-center justify-center border border-white/10 bg-white/[0.03] p-4 transition-colors duration-300 hover:bg-white/[0.07]">
+                                            <img
+                                                src={client.image}
+                                                alt={client.name}
+                                                class="max-h-20 object-contain"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            ),
+                        ];
+                    })()
+                }
+            </div>
+        </section>
+
+        <section class="w-full py-20 md:py-28">
+            <div class="mb-10 flex items-end justify-between gap-6 border-b border-white/15 pb-6">
+                <div class="space-y-3">
+                    <p class="font-khand text-sm font-semibold uppercase tracking-[0.2em] text-proline-red">
+                        Selected work
+                    </p>
+                    <h2 class="text-white">Featured projects</h2>
+                </div>
+                <a
+                    href="/projects"
+                    class="group hidden items-center gap-3 font-khand text-lg font-semibold text-white transition-colors duration-300 hover:text-proline-red sm:flex"
+                >
+                    View all projects
+                    <Arrow class:list="transition-transform duration-300 group-hover:translate-x-2" />
+                </a>
+            </div>
+            <div class="grid w-full gap-6 md:grid-cols-2">
+                {
+                    featuredProjects.map((project, index) => (
+                        <a
+                            href={'/projects/' + project.slug}
+                            class:list={[
+                                'group relative isolate block aspect-[4/3] overflow-hidden bg-black',
+                                featuredProjects.length % 2 === 1 &&
+                                    index === featuredProjects.length - 1 &&
+                                    'md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]',
+                            ]}
+                            aria-label={`View ${project.data.title} project`}
+                        >
+                            <div class="absolute inset-0 overflow-hidden">
+                                <img
+                                    class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                                    src={project.data.featuredImage}
+                                    alt={project.data.title}
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
+                            <div class="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                                <div class="mb-3 h-0.5 w-10 bg-proline-red transition-all duration-300 group-hover:w-16" />
+                                <div class="flex items-end justify-between gap-5">
+                                    <div>
+                                        <h3 class="text-white">
+                                            {project.data.title}
+                                        </h3>
+                                        {project.data.featuredSubtext && (
+                                            <p class="mt-2 text-sm text-white/80 md:text-base">
+                                                {project.data.featuredSubtext}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <Arrow class:list="mb-1 shrink-0 text-proline-red transition-transform duration-300 group-hover:translate-x-2" />
+                                </div>
+                            </div>
+                        </a>
+                    ))
+                }
+            </div>
+            <a
+                href="/projects"
+                class="group mt-8 flex items-center justify-center gap-3 border border-white/20 px-6 py-4 font-khand text-lg font-semibold text-white transition-colors duration-300 hover:border-proline-red hover:text-proline-red sm:hidden"
+            >
+                View all projects
+                <Arrow class:list="transition-transform duration-300 group-hover:translate-x-2" />
+            </a>
+        </section>
+
+        <section class="grid gap-10 py-20 md:grid-cols-2">
+            <div class="order-last md:order-first">
+                <img
+                    src="/assets/homepage/1.jpg"
+                    class="h-full w-full object-cover"
+                    alt=""
+                />
+            </div>
+            <div class="space-y-10 md:py-20">
+                <h3>Proline</h3>
+                <h2>We’ve found a better way to do things…</h2>
+                <p>
+                    At Proline, we’re changing the way commercial projects come
+                    to life. As a progressive, agile team, we’re not bound by
+                    the traditional methods of the industry. Instead, we
+                    leverage cutting-edge technology and innovative processes to
+                    deliver end-to-end solutions.
+                </p>
+                <Button url="/process" label="What we do" />
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-screen-lg space-y-10 py-20">
+            <h3>Our Process</h3>
+            <div class="grid gap-x-5 gap-y-10 md:grid-cols-3">
+                <div class="space-y-5 md:space-y-10">
+                    <img
+                        src="/assets/homepage/design.jpg"
+                        class="h-60 w-full object-cover md:h-[25rem]"
+                        alt=""
+                    />
+                    <h3 class="text-white">Design</h3>
+                </div>
+                <div class="space-y-10">
+                    <img
+                        src="/assets/homepage/manufacture.jpg"
+                        class="h-60 w-full object-cover md:h-[25rem]"
+                        alt=""
+                    />
+                    <h3 class="text-white">Manufacture</h3>
+                </div>
+                <div class="space-y-10">
+                    <img
+                        src="/assets/homepage/installation.jpg"
+                        class="h-60 w-full object-cover md:h-[25rem]"
+                        alt=""
+                    />
+                    <h3 class="text-white">Installation</h3>
+                </div>
+            </div>
+        </section>
+
+        <VideoList client:load />
+
+        <section class="grid gap-10 pt-20 md:grid-cols-2">
+            <div class="order-last md:order-first">
+                <img
+                    src="/assets/homepage/safety.jpg"
+                    class="h-full w-full object-cover"
+                    alt=""
+                />
+            </div>
+            <div class="space-y-10 md:py-20">
+                <h2>Setting the standard for safety practices</h2>
+                <p>
+                    We create a secure work environment for our team and
+                    clients. Safety is our top priority, especially when
+                    managing large-scale government and commercial projects.
+                    Given the high-risk nature of commercial cladding work, we
+                    ensure safety through daily inspections to identify hazards
+                    and daily toolbox talks to align teams on critical safety
+                    topics. Our proactive safety culture integrates risk
+                    management and strict compliance into every stage of our
+                    operations.
+                </p>
+                <Button url="/process" label="Our process" />
+            </div>
+        </section>
+    </Content>
+</Layout>

@@ -1,0 +1,175 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+import { marked } from 'marked';
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+import Arrow from '@components/Ui/Icons/Arrow.vue';
+
+export async function getStaticPaths() {
+    const insights = await getCollection('insights');
+    return insights.map(insight => ({ params: { slug: insight.slug } }));
+}
+
+const insight = (await getEntry(
+    'insights',
+    Astro.params.slug as string
+)) as CollectionEntry<'insights'>;
+
+const formatDate = (date: string | Date) =>
+    new Intl.DateTimeFormat('en-AU', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    }).format(new Date(date));
+---
+
+<Layout
+    title={insight.data.title}
+    description={insight.data.description}
+    image={insight.data.featuredImage}
+>
+    <Content class="pt-20 md:pt-28">
+        <article>
+            <a
+                href="/insights/"
+                class="group mb-12 inline-flex items-center gap-2 text-proline-red"
+            >
+                <Arrow class="h-5 w-5 rotate-180 transition-transform duration-300 group-hover:-translate-x-2" />
+                <span class="font-khand text-lg font-semibold">Back to Insights</span>
+            </a>
+
+            <header class="mx-auto mb-14 max-w-4xl text-center md:mb-20">
+                <div class="mb-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs uppercase tracking-[0.16em] text-white/55">
+                    <span class="text-proline-red">{insight.data.category}</span>
+                    <time datetime={String(insight.data.publishedDate)}>
+                        {formatDate(insight.data.publishedDate)}
+                    </time>
+                </div>
+                <h1 class="font-khand text-5xl font-semibold leading-none tracking-tight text-white md:text-7xl">
+                    {insight.data.title}
+                </h1>
+                <p class="mx-auto mt-7 max-w-2xl text-lg">
+                    {insight.data.description}
+                </p>
+            </header>
+
+            <img
+                src={insight.data.featuredImage}
+                alt={insight.data.title}
+                class="aspect-[16/9] w-full object-cover"
+            />
+
+            <div
+                class="insight-prose mx-auto my-16 max-w-3xl md:my-24"
+                set:html={marked.parse(insight.body ?? '')}
+            />
+        </article>
+    </Content>
+</Layout>
+
+<style>
+    .insight-prose :global(p) {
+        margin-bottom: 1.5rem;
+        font-size: 1.08rem;
+        line-height: 1.9;
+    }
+
+    .insight-prose :global(h2) {
+        margin-top: 3.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .insight-prose :global(h3) {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .insight-prose :global(a) {
+        color: #d64829;
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+    }
+
+    .insight-prose :global(.podcast-links) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin: 2.5rem 0;
+        padding: 1.5rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .insight-prose :global(.podcast-links a) {
+        display: inline-flex;
+        min-height: 2.75rem;
+        align-items: center;
+        padding: 0.7rem 1rem;
+        border: 1px solid #d64829;
+        color: #fff;
+        font-size: 0.8rem;
+        font-weight: 650;
+        letter-spacing: 0.07em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: background-color 180ms ease, transform 180ms ease;
+    }
+
+    .insight-prose :global(.podcast-links a:hover) {
+        background: #d64829;
+        transform: translateY(-2px);
+    }
+
+    .insight-prose :global(ul),
+    .insight-prose :global(ol) {
+        margin: 1.5rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .insight-prose :global(.article-image) {
+        display: block;
+        width: 100%;
+        margin: 3rem 0;
+    }
+
+    .insight-prose :global(.article-video) {
+        aspect-ratio: 16 / 9;
+        width: 100%;
+        margin: 3rem 0 0;
+        overflow: hidden;
+        background: #000;
+    }
+
+    .insight-prose :global(.article-video iframe) {
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .insight-prose :global(.media-caption) {
+        margin-top: 0.75rem;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.82rem;
+        line-height: 1.5;
+    }
+
+    .insight-prose :global(.article-gallery) {
+        display: grid;
+        gap: 1rem;
+        margin: 3rem 0;
+    }
+
+    .insight-prose :global(.article-gallery img) {
+        aspect-ratio: 4 / 3;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @media (min-width: 768px) {
+        .insight-prose :global(.article-gallery) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+</style>

@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "astro-build.astro-vscode",
+        "ms-playwright.playwright",
+        "vue.volar",
+        "gruntfuggly.todo-tree",
+        "esbenp.prettier-vscode",
+        "yoavbls.pretty-ts-errors",
+        "zignd.html-css-class-completion",
+        "heybourn.headwind",
+        "bradlc.vscode-tailwindcss"
+    ],
+    "unwantedRecommendations": []
+}

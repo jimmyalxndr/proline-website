@@ -1,0 +1,131 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+import PageHeader from '@components/Ui/Components/PageHeader.vue';
+const pageTitle = 'About Us';
+---
+
+<Layout title={pageTitle}>
+    <PageHeader title={pageTitle} />
+    <Content>
+        <section class="my-20 space-y-10 lg:ml-20">
+            <h2 class="max-w-lg">
+                While the industry clings to outdated methods, Proline is
+                forging a better way forward.
+            </h2>
+
+            <p class="max-w-lg md:ml-20 lg:ml-40">
+                Our team thrives on innovation, constantly refining our systems
+                to achieve smarter, more effective solutions. By consolidating
+                every stage of your project under one roof, we eliminate
+                inefficiencies, reduce costs, and streamline timelines. With our
+                in-house fabrication capabilities, and transportation, there’s
+                no need to juggle multiple vendors or worry about
+                miscommunication across teams. Combining custom craftsmanship
+                with a high-performance culture, Proline delivers innovative
+                solutions that overcome any roadblocks. Our commitment to
+                precision and adaptability ensures every project is executed
+                seamlessly, no matter how complex the challenge.
+            </p>
+        </section>
+
+        <section class="grid gap-x-5 gap-y-10 py-20 md:grid-cols-3">
+            <div class="space-y-10">
+                <img
+                    src="/assets/about-us/metal-cladding.jpg"
+                    alt=""
+                    class="w-full"
+                />
+                <div class="space-y-5">
+                    <h3 class="text-white">Metal Cladding</h3>
+                    <div class="border-b border-proline-red"></div>
+                    <p>
+                        Masters in metal cladding installation, we deliver
+                        durable, high-quality solutions tailored to projects of
+                        any scale. From cutting-edge architectural designs to
+                        large commercial developments, our expert team ensures
+                        precision and excellence every step of the way.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-10">
+                <img src="/assets/about-us/facades.jpg" alt="" class="w-full" />
+                <div class="space-y-5">
+                    <h3 class="text-white">Proline Facades</h3>
+                    <div class="border-b border-proline-red"></div>
+                    <p>
+                        Redefining facade systems with innovative designs that
+                        balance form and function, we create visually stunning
+                        exteriors built for durability and performance. Our
+                        facades elevate structures with unmatched style and
+                        long-lasting value.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-10">
+                <img
+                    src="/assets/about-us/fabrication.jpg"
+                    alt=""
+                    class="w-full"
+                />
+                <div class="space-y-5">
+                    <h3 class="text-white">Proline Fabrication</h3>
+                    <div class="border-b border-proline-red"></div>
+                    <p>
+                        With cutting-edge technology (including state of the art
+                        folders, CNC machines, break presses and guillotines)
+                        combined with expert craftsmanship, our fabrication
+                        division transforms designs into reality. From custom
+                        flashings to large-scale production, Proline Fabrication
+                        sets the standard for precision and manufacturing
+                        excellence.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20">
+            <div class="mb-10 grid items-center gap-10 md:grid-cols-2">
+                <div class="space-y-10 md:my-10">
+                    <h3>About the team</h3>
+                    <h2>
+                        With over 100 highly skilled professionals on-site and
+                        off-site, Proline Group brings together master
+                        craftsmen, agile problem solvers, and progressive
+                        thinkers who always find better ways of doing things.
+                    </h2>
+                </div>
+                <div class="relative h-full">
+                    <img
+                        src="/assets/about-us/about-the-team.jpg"
+                        alt=""
+                        class="h-full w-full object-cover md:absolute"
+                    />
+                </div>
+            </div>
+            <!-- <div
+                class="grid gap-10 pt-20 sm:grid-cols-2 md:grid-cols-4 lg:gap-20"
+            >
+                {
+                    team.map(member => (
+                        <div class="space-y-5">
+                            <img
+                                src={member.image}
+                                alt=""
+                                class="w-full object-cover"
+                            />
+                            <div>
+                                <h4 class="font-khand font-bold text-proline-red">
+                                    {member.name}
+                                </h4>
+                                <p>{member.role}</p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div> -->
+        </section>
+    </Content>
+</Layout>

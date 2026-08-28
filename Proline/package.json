@@ -1,0 +1,51 @@
+{
+    "name": "astro",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro check && astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "audit": "better-npm-audit audit",
+        "lint": "prettier --check --write . && astro check",
+        "prepare": "husky",
+        "test": "playwright test"
+    },
+    "dependencies": {
+        "@astrojs/check": "^0.8.3",
+        "@astrojs/cloudflare": "^11.2.0",
+        "@astrojs/netlify": "^5.5.4",
+        "@astrojs/sitemap": "^3.2.1",
+        "@astrojs/tailwind": "^5.1.2",
+        "@astrojs/vue": "^4.5.2",
+        "@netlify/functions": "^2.8.2",
+        "@vueuse/components": "^10.11.1",
+        "@vueuse/core": "^10.11.1",
+        "astro": "^4.16.7",
+        "astro-lazy-youtube-embed": "^0.5.1",
+        "change-case": "^5.4.4",
+        "html-entities": "^2.5.2",
+        "marked": "^15.0.1",
+        "postmark": "^4.0.5",
+        "sharp": "^0.33.5",
+        "tailwindcss": "^3.4.14",
+        "typescript": "^5.6.3",
+        "vue": "^3.5.12",
+        "vue-tw-directive": "^1.0.2"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.48.2",
+        "@tailwindcss/forms": "^0.5.9",
+        "@tailwindcss/typography": "^0.5.15",
+        "@types/node": "^22.8.1",
+        "better-npm-audit": "^3.11.0",
+        "husky": "^9.1.6",
+        "prettier": "^3.3.3",
+        "prettier-plugin-astro": "^0.14.1",
+        "prettier-plugin-tailwindcss": "^0.6.8",
+        "tailwind-scrollbar-hide": "^1.1.7"
+    },
+    "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228"
+}

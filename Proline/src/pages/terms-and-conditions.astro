@@ -1,0 +1,37 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+import Prose from '@components/ContentBlock/Prose.vue';
+
+const pageTitle = 'Terms and Conditions';
+---
+
+<Layout title={pageTitle}>
+    <Content>
+        <h1
+            class="mb-10 text-center text-4xl font-bold leading-none xs:text-5xl md:text-7xl"
+        >
+            {pageTitle}
+        </h1>
+
+        <Prose class="mt-20">
+            <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+                non minus, maiores quod quae veritatis in labore nesciunt ipsa
+                nobis blanditiis autem, esse, assumenda sint! Magni ullam
+                provident laudantium sapiente.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+                non minus, maiores quod quae veritatis in labore nesciunt ipsa
+                nobis blanditiis autem, esse, assumenda sint! Magni ullam
+                provident laudantium sapiente. Lorem ipsum dolor sit amet
+                consectetur. Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. Fugit hic deserunt illo! Ipsum, sequi! Veniam voluptatum
+                aperiam possimus. Quaerat dicta odio saepe a totam esse quam
+                assumenda facere vel pariatur!
+            </p>
+        </Prose>
+    </Content>
+</Layout>

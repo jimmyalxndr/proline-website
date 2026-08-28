@@ -1,0 +1,101 @@
+/*
+ * Any additional styles can go here. Eg: font declarations, etc.
+ */
+
+/*
+ * Roboto
+ * ---------------------------------
+ * woff2 browser support: Chrome 26+, Opera 23+, Firefox 39+
+ * woff browser support: Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+
+ */
+/* @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: local(''), url('/fonts/roboto-300.woff2') format('woff2'), url('/fonts/roboto-300.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local(''), url('/fonts/roboto-400.woff2') format('woff2'), url('/fonts/roboto-400.woff') format('woff');
+} */
+/* etc.... but only include minimal amount of font wieghts where possible to keep page loads fast */
+
+@font-face {
+    font-family: 'Switzer-Variable';
+    src:
+        url('/fonts/Switzer-Variable.woff2') format('woff2'),
+        url('/fonts/Switzer-Variable.woff') format('woff'),
+        url('/fonts/Switzer-Variable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+html {
+    font-family: 'Switzer-Variable', system-ui, sans-serif;
+    background: #070707;
+    color-scheme: dark;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 85% 15%, rgba(214, 72, 41, 0.08), transparent 28rem),
+        linear-gradient(180deg, #080808 0%, #0d0d0d 45%, #070707 100%);
+    color: rgba(255, 255, 255, 0.88);
+}
+
+main {
+    @apply overflow-x-hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    text-wrap: balance;
+}
+
+h2 {
+    @apply font-khand text-4xl font-semibold leading-tight tracking-tight md:text-5xl;
+}
+
+h3 {
+    @apply font-khand text-xl font-semibold tracking-wide text-proline-red md:text-2xl;
+}
+
+p {
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+main section {
+    position: relative;
+}
+
+main img:not([src*='/clients/']):not([src*='/icons/']) {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+::selection {
+    background: #d64829;
+    color: #fff;
+}
+
+code {
+    font-family:
+        Menlo,
+        Monaco,
+        Lucida Console,
+        Liberation Mono,
+        DejaVu Sans Mono,
+        Bitstream Vera Sans Mono,
+        Courier New,
+        monospace;
+}

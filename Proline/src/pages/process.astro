@@ -1,0 +1,143 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+import PageHeader from '@components/Ui/Components/PageHeader.vue';
+const pageTitle = 'Our Process';
+
+const processes = [
+    {
+        title: 'Tender Invitations',
+        description:
+            'Tender invitation responses and early pricing to assist builders in securing projects.',
+        image: '/assets/process/icons/tender-invitations.svg',
+    },
+    {
+        title: 'Repricing & Contracting',
+        description:
+            'Reprice secured projects and finalise contracts to begin work.',
+        image: '/assets/process/icons/repricing-contracting.svg',
+    },
+    {
+        title: 'Design Phase',
+        description:
+            'Our draftsmen create detailed shop drawings to guide the build.',
+        image: '/assets/process/icons/design-phase.svg',
+    },
+    {
+        title: 'Fabrication & Delivery',
+        description:
+            'Materials are fabricated in-house and delivered using our fleet for timely execution.',
+        image: '/assets/process/icons/fabrication-delivery.svg',
+    },
+    {
+        title: 'Project Team Assignment',
+        description:
+            'A dedicated project manager oversees every aspect of the build.',
+        image: '/assets/process/icons/team-assignment.svg',
+    },
+    {
+        title: 'On-Site Execution',
+        description:
+            'Our installation team expertly executes the work on-site, ensuring precision and quality.',
+        image: '/assets/process/icons/on-site-execution.svg',
+    },
+    {
+        title: 'Tracking & Compliance',
+        description:
+            'Using tools like Visibuild, we monitor progress, safety, and methods to ensure full compliance with codes and regulations.',
+        image: '/assets/process/icons/tracking-compliance.svg',
+    },
+];
+---
+
+<Layout title={pageTitle}>
+    <PageHeader title={pageTitle} />
+    <Content>
+        <section class="my-20 space-y-10 lg:ml-20">
+            <h2 class="max-w-lg">Precision, progress, and performance</h2>
+
+            <p class="max-w-lg md:ml-20 lg:ml-40">
+                We specialise in handling the complexities of large-scale
+                contracts with precision, offering custom solutions that align
+                with your goals. When you work with Proline, you gain more than
+                a contractor—you gain a collaborative partner focused on the
+                bigger picture.
+            </p>
+        </section>
+
+        <section class="py-20">
+            <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                {
+                    processes.map(process => (
+                        <div class="flex flex-col items-center text-center">
+                            <img src={process.image} class="w-40" />
+                            <h3>{process.title}</h3>
+                            <p>{process.description}</p>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="space-y-20 py-20">
+            <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                <div class="relative order-last md:order-first lg:col-span-2">
+                    <img
+                        src="/assets/process/design.jpg"
+                        alt=""
+                        class="h-full w-full object-cover md:absolute"
+                    />
+                </div>
+                <div class="space-y-5 md:py-10">
+                    <h3>Step 1</h3>
+                    <h2>Design</h2>
+                    <p>
+                        Our in-house drafting and design team work closely with
+                        architects and builders to finalise compliant designs
+                        and ensure seamless integration well before the project
+                        begins.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                <div class="relative order-last lg:col-span-2">
+                    <img
+                        src="/assets/process/manufacture.jpg"
+                        alt=""
+                        class="h-full w-full object-cover md:absolute"
+                    />
+                </div>
+                <div class="space-y-5 md:py-10">
+                    <h3>Step 2</h3>
+                    <h2>Manufacture</h2>
+                    <p>
+                        Unique to each job, we source materials locally or
+                        globally and handle every step of fabrication
+                        in-house—cutting, bending, and crafting panels with
+                        unmatched precision and control.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                <div class="relative order-last md:order-first lg:col-span-2">
+                    <img
+                        src="/assets/process/installation.jpg"
+                        alt=""
+                        class="h-full w-full object-cover md:absolute"
+                    />
+                </div>
+                <div class="space-y-5 md:py-10">
+                    <h3>Step 3</h3>
+                    <h2>Installation</h2>
+                    <p>
+                        Using our dedicated fleet, we deliver materials to site,
+                        where our expert team ensures efficient and flawless
+                        installation.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </Content>
+</Layout>
