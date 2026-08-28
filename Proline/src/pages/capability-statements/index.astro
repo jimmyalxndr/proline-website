@@ -2,6 +2,7 @@
 import Layout from '@layouts/Layout.astro';
 import Content from '@layouts/partials/Content.astro';
 import PageHeader from '@components/Ui/Components/PageHeader.vue';
+import BookViewer from '@components/Ui/Components/BookViewer.vue';
 
 const pageTitle = 'Capability Statements';
 
@@ -13,6 +14,7 @@ const statements = [
         pages: 8,
         cover: '/assets/capability-statements/proline-capability-cover.png',
         pdf: '/documents/proline-capability-statement-2026.pdf',
+        pageFolder: '/assets/capability-statements/proline-capability-2026/pages',
     },
     {
         title: 'Proline Modular 2026',
@@ -21,6 +23,7 @@ const statements = [
         pages: 5,
         cover: '/assets/capability-statements/proline-modular-cover.png',
         pdf: '/documents/proline-modular-2026.pdf',
+        pageFolder: '/assets/capability-statements/proline-modular-2026/pages',
     },
 ];
 ---
@@ -36,8 +39,8 @@ const statements = [
             <div class="mb-16 max-w-3xl space-y-6">
                 <h2>Our capability, experience and delivery approach.</h2>
                 <p class="max-w-2xl text-lg">
-                    Read our complete capability statements online, open them
-                    full-screen, or download a copy for later.
+                    Explore each document in our interactive page-turning
+                    reader, open it full-screen, or download a copy for later.
                 </p>
             </div>
 
@@ -91,30 +94,20 @@ const statements = [
                                 rel="noopener noreferrer"
                                 class="inline-flex min-h-11 items-center border border-proline-red px-5 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-proline-red"
                             >
-                                Open full screen
-                            </a>
-                            <a
-                                href={statement.pdf}
-                                download
-                                class="inline-flex min-h-11 items-center bg-white px-5 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-black transition-colors hover:bg-proline-red hover:text-white"
-                            >
-                                Download PDF
+                                Open original PDF
                             </a>
                         </div>
                     </div>
 
-                    <div class="overflow-hidden border border-white/15 bg-[#1b1b1b] shadow-2xl shadow-black/40">
-                        <iframe
-                            src={`${statement.pdf}#view=FitH&toolbar=1&navpanes=0`}
-                            title={`${statement.title} PDF viewer`}
-                            loading="lazy"
-                            class="h-[70vh] min-h-[620px] w-full md:h-[85vh] md:min-h-[780px]"
-                        />
-                    </div>
-                    <p class="mt-4 text-sm">
-                        Use the PDF controls to move between pages, zoom, print
-                        or download the document.
-                    </p>
+                    <BookViewer
+                        client:load
+                        title={statement.title}
+                        pdf={statement.pdf}
+                        pages={Array.from(
+                            { length: statement.pages },
+                            (_, index) => `${statement.pageFolder}/page-${index + 1}.jpg`
+                        )}
+                    />
                 </section>
             ))
         }
