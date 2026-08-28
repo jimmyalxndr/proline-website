@@ -146,26 +146,28 @@ const formatDate = (date: string | Date) =>
             <h3 class="max-w-md text-center">
                 Collaborating with the nation’s largest builders
             </h3>
-            <div
-                class="relative left-1/2 grid w-full -translate-x-1/2 grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4 lg:w-[calc(100vw-6rem)] lg:max-w-[144rem] lg:grid-cols-10 lg:gap-4"
-            >
-                {
-                    clients.map((client, index) => (
-                        <div
-                            class:list={[
-                                'flex aspect-[4/3] min-h-0 min-w-0 items-center justify-center overflow-hidden border border-white/10 bg-white/[0.03] p-3 transition-colors duration-300 hover:bg-white/[0.07] md:p-4',
-                                index === 20 && 'lg:col-start-2',
-                            ]}
-                        >
-                            <img
-                                src={client.image}
-                                alt={client.name}
-                                loading="lazy"
-                                class="h-12 w-[82%] object-contain md:h-14 lg:h-16"
-                            />
-                        </div>
-                    ))
-                }
+            <div class="w-screen px-6 sm:px-10 lg:px-12">
+                <div
+                    class="mx-auto grid w-full max-w-[144rem] grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4 lg:grid-cols-10 lg:gap-4"
+                >
+                    {
+                        clients.map((client, index) => (
+                            <div
+                                class:list={[
+                                    'flex aspect-[4/3] min-h-0 min-w-0 items-center justify-center overflow-hidden border border-white/10 bg-white/[0.03] p-3 transition-colors duration-300 hover:bg-white/[0.07] md:p-4',
+                                    index === 20 && 'lg:col-start-2',
+                                ]}
+                            >
+                                <img
+                                    src={client.image}
+                                    alt={client.name}
+                                    loading="lazy"
+                                    class="h-12 w-[82%] object-contain md:h-14 lg:h-16"
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
         </section>
 

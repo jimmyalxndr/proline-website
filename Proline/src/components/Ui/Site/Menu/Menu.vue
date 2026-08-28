@@ -3,7 +3,7 @@ import Facebook from '@components/Ui/Icons/Facebook.vue';
 import Instagram from '@components/Ui/Icons/Instagram.vue';
 import Linkedin from '@components/Ui/Icons/Linkedin.vue';
 import MenuItem from './MenuItem.vue';
-import { ref } from 'vue';
+import { onBeforeUnmount, ref, watch } from 'vue';
 
 interface Props {
     currentPath: string;
@@ -25,6 +25,29 @@ const menuOpen = ref(false);
 function toggleMenu() {
     menuOpen.value = !menuOpen.value;
 }
+
+function closeMenu() {
+    menuOpen.value = false;
+}
+
+function handleEscape(event: KeyboardEvent) {
+    if (event.key === 'Escape') closeMenu();
+}
+
+watch(menuOpen, isOpen => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if (isOpen) {
+        document.addEventListener('keydown', handleEscape);
+    } else {
+        document.removeEventListener('keydown', handleEscape);
+    }
+});
+
+onBeforeUnmount(() => {
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', handleEscape);
+});
 </script>
 
 <template>
@@ -72,6 +95,9 @@ function toggleMenu() {
             </ul>
         </div>
         <button
+            type="button"
+            aria-label="Toggle navigation menu"
+            :aria-expanded="menuOpen"
             class="z-50 flex h-[calc(4rem-1px)] w-16 items-center justify-center transition-colors duration-500 ease-in-out lg:hidden"
             :class="menuOpen ? 'bg-transparent' : 'bg-3ds-orange'"
             @click="toggleMenu"
@@ -87,54 +113,68 @@ function toggleMenu() {
         </button>
     </nav>
 
-    <Transition name="slide">
-        <div
-            v-if="menuOpen"
-            class="fixed inset-0 z-40 overflow-auto border-b border-proline-red bg-[#050505] px-10 pb-10 pt-20 text-white lg:p-20"
-        >
-            <ul class="flex flex-col gap-2 font-khand text-xl font-bold">
-                <li v-for="item in MenuItems" :key="item.label">
-                    <a
-                        :href="item.url"
-                        :target="item.url.startsWith('/') ? '_self' : '_blank'"
+    <Teleport to="body">
+        <Transition name="slide">
+            <div
+                v-if="menuOpen"
+                class="fixed inset-0 z-40 overflow-y-auto bg-[#050505] px-8 pb-10 pt-24 text-white"
+            >
+                <ul class="flex min-h-full flex-col font-khand text-3xl font-bold">
+                    <li
+                        v-for="item in MenuItems"
+                        :key="item.label"
+                        class="border-b border-white/10"
                     >
-                        {{ item.label }}
-                    </a>
-                </li>
-                <li>
-                    <ul class="my-3 flex items-center gap-3">
-                        <li>
-                            <a
-                                href="#"
-                                target="_blank"
-                                class="flex items-center justify-center font-bold text-black transition-colors duration-300"
-                            >
-                                <Instagram class="h-6" />
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                target="_blank"
-                                class="flex items-center justify-center font-bold text-black transition-colors duration-300"
-                            >
-                                <Facebook class="h-6" />
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                target="_blank"
-                                class="flex items-center justify-center font-bold text-black transition-colors duration-300"
-                            >
-                                <Linkedin class="h-6" />
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </Transition>
+                        <a
+                            :href="item.url"
+                            class="block py-4 transition-colors duration-300 hover:text-proline-red"
+                            :class="currentPath === item.url ? 'text-proline-red' : 'text-white'"
+                            @click="closeMenu"
+                        >
+                            {{ item.label }}
+                        </a>
+                    </li>
+                    <li class="mt-auto pt-8">
+                        <ul class="flex items-center gap-5">
+                            <li>
+                                <a
+                                    href="https://www.instagram.com/prolinegroupau"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Proline on Instagram"
+                                    class="flex items-center justify-center text-[#E4405F]"
+                                >
+                                    <Instagram class="h-7" />
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.facebook.com/prolinemetalcladding/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Proline on Facebook"
+                                    class="flex items-center justify-center text-[#1877F2]"
+                                >
+                                    <Facebook class="h-7" />
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.linkedin.com/company/proline-metal-cladding/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Proline on LinkedIn"
+                                    class="flex items-center justify-center text-[#0A66C2]"
+                                >
+                                    <Linkedin class="h-7" />
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </Transition>
+    </Teleport>
 </template>
 
 <style>
