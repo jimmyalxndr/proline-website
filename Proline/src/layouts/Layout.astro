@@ -9,15 +9,17 @@ interface Props {
     title: string;
     description?: string;
     image?: string;
+    home?: boolean;
 }
 
 const {
     title,
     description = 'Proline delivers premium architectural metal cladding, facade, fabrication and installation solutions across Melbourne.',
     image = '/assets/homepage/2.jpg',
+    home = false,
 } = Astro.props;
 const siteName = 'Proline';
-const isHomePage = Astro.url.pathname === '/';
+const isHomePage = home;
 const socialImage = new URL(image, Astro.site ?? Astro.url.origin);
 let pageTitle = title;
 if (!isHomePage) {
@@ -45,6 +47,17 @@ if (!isHomePage) {
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3" />
         <link rel="manifest" href="/manifest.webmanifest?v=3" />
         <meta name="theme-color" content="#050505" />
+        {
+            isHomePage && (
+                <>
+                    <link rel="preconnect" href="https://player.vimeo.com" />
+                    <link rel="preconnect" href="https://i.vimeocdn.com" crossorigin="anonymous" />
+                    <link rel="preconnect" href="https://f.vimeocdn.com" crossorigin="anonymous" />
+                    <link rel="dns-prefetch" href="https://player.vimeo.com" />
+                    <link rel="dns-prefetch" href="https://i.vimeocdn.com" />
+                </>
+            )
+        }
         <meta name="generator" content={Astro.generator} />
         <title>{pageTitle}</title>
         <Webfonts />
@@ -68,26 +81,29 @@ if (!isHomePage) {
         <!-- End Google Tag Manager -->
     </head>
     <body class="text-white">
+        <Header class={isHomePage ? 'absolute top-0 z-50 w-full' : 'fixed-header'} />
         {
             isHomePage && (
                 <div class="relative h-screen">
-                    <Header class="absolute top-0 z-50 w-full" />
-
                     <div class="hero relative flex h-full pt-20">
                         <img
                             src="/assets/video-thumb.jpg"
                             alt=""
+                            fetchpriority="high"
+                            decoding="async"
                             class="absolute inset-0 h-full w-full object-cover"
                         />
-                        <div class="pointer-events-none absolute left-0 top-0 h-full w-full overflow-hidden bg-black">
-                            <div class="relative">
-                                <iframe
-                                    src="https://player.vimeo.com/video/1058796048?background=1&autoplay=1&loop=1&mute=1&controls=0"
-                                    allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                                    allowfullscreen
-                                    class="absolute left-1/2 top-1/2 aspect-16/9 min-h-full w-full min-w-[177.77vh] -translate-x-1/2"
-                                />
-                            </div>
+                        <div class="pointer-events-none absolute inset-0 overflow-hidden">
+                            <iframe
+                                id="hero-video"
+                                src="https://player.vimeo.com/video/1058796048?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0&playsinline=1&dnt=1"
+                                title="Proline architectural metal cladding projects"
+                                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                                allowfullscreen
+                                loading="eager"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                class="hero-video absolute left-1/2 top-1/2 aspect-video min-h-full w-full min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2"
+                            />
                         </div>
 
                         <div class="hero-content relative mb-8 flex max-w-3xl flex-col justify-end gap-7 px-6 sm:mb-12 sm:px-10 lg:mb-16 lg:px-20">
@@ -110,7 +126,6 @@ if (!isHomePage) {
             )
         }
 
-        {!isHomePage && <Header class="fixed-header" />}
         <main class="py-16 font-switzer text-white">
             <slot />
         </main>
@@ -121,7 +136,15 @@ if (!isHomePage) {
             isHomePage && (
                 <script>
                     document.addEventListener('DOMContentLoaded', function ()
-                    {window.addEventListener('scroll', function () {
+                    {const heroVideo = document.getElementById('hero-video');
+                    if (heroVideo) {
+                        heroVideo.addEventListener('load', function () {
+                            window.setTimeout(function () {
+                                heroVideo.classList.add('is-ready');
+                            }, 150);
+                        }, { once: true });
+                    }
+                    window.addEventListener('scroll', function () {
                         var navHeight = window.innerHeight - 80;
                         if (window.scrollY > navHeight) {
                             const header = document.querySelector('header');
@@ -163,6 +186,15 @@ if (!isHomePage) {
 
     .hero-content {
         z-index: 1;
+    }
+
+    .hero-video {
+        opacity: 0;
+        transition: opacity 700ms ease;
+    }
+
+    .hero-video.is-ready {
+        opacity: 1;
     }
 
     .hero-eyebrow {
