@@ -1,5 +1,5 @@
 <template>
-    <section class="py-20">
+    <section class="py-16 md:py-20">
         <VideoPopup
             v-if="showVideoPopup"
             :videoUrl="videoUrl"
@@ -8,28 +8,40 @@
             class="mx-auto"
         />
 
-        <div class="space-y-5">
-            <h3 class="ml-24">Our Projects</h3>
+        <div class="space-y-8 md:space-y-5">
+            <div class="mx-auto max-w-3xl space-y-4 text-center md:hidden">
+                <h3>Our Projects</h3>
 
-            <div class="skew-x-[-20deg] border-l border-proline-red pl-3">
-                <div class="border-l border-proline-red pl-3">
+                <h2>
+                    Delivering high-quality cladding solutions for large-scale
+                    construction projects with precision, reliability, and
+                    expert craftsmanship.
+                </h2>
+
+                <div class="mx-auto h-px w-20 bg-proline-red"></div>
+            </div>
+
+            <div class="hidden md:block">
+                <h3 class="ml-24">Our Projects</h3>
+
+                <div class="mt-5 skew-x-[-20deg] border-l border-proline-red pl-3">
                     <div class="border-l border-proline-red pl-3">
-                        <div
-                            class="border-b border-l border-proline-red pl-10"
-                        >
-                            <h2 class="max-w-xl skew-x-[20deg] pb-5 pl-4">
-                                Delivering high-quality cladding solutions for
-                                large-scale construction projects with
-                                precision, reliability, and expert
-                                craftsmanship.
-                            </h2>
+                        <div class="border-l border-proline-red pl-3">
+                            <div class="border-b border-l border-proline-red pl-10">
+                                <h2 class="max-w-xl skew-x-[20deg] pb-5 pl-4">
+                                    Delivering high-quality cladding solutions
+                                    for large-scale construction projects with
+                                    precision, reliability, and expert
+                                    craftsmanship.
+                                </h2>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="ml-24 grid gap-5 pt-2 sm:grid-cols-3">
-                <div class="w-full space-y-3">
+            <div class="mx-auto grid w-full max-w-screen-xl gap-8 sm:grid-cols-3 sm:gap-5 md:ml-24 md:w-[calc(100%-6rem)]">
+                <div class="w-full space-y-3 text-center sm:text-left">
                     <button
                         class="group relative w-full"
                         @click="
@@ -43,14 +55,14 @@
                         />
                         <img
                             src="/assets/homepage/morris-moore-thumb.jpg"
-                            class="w-full"
+                            class="aspect-video w-full object-cover"
                             alt=""
                         />
                     </button>
                     <p>Morris Moore</p>
                 </div>
 
-                <div class="w-full space-y-3">
+                <div class="w-full space-y-3 text-center sm:text-left">
                     <button
                         class="group relative w-full"
                         @click="
@@ -64,14 +76,14 @@
                         />
                         <img
                             src="/assets/homepage/albert-fields-thumb.jpg"
-                            class="w-full"
+                            class="aspect-video w-full object-cover"
                             alt=""
                         />
                     </button>
                     <p>Albert Fields</p>
                 </div>
 
-                <div class="w-full space-y-3">
+                <div class="w-full space-y-3 text-center sm:text-left">
                     <button
                         class="group relative w-full"
                         @click="
@@ -85,7 +97,7 @@
                         />
                         <img
                             src="/assets/homepage/antonine-college-thumb.jpg"
-                            class="w-full"
+                            class="aspect-video w-full object-cover"
                             alt=""
                         />
                     </button>

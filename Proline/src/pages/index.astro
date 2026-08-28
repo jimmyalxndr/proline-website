@@ -4,7 +4,6 @@ import Content from '@layouts/partials/Content.astro';
 import Arrow from '@components/Ui/Icons/Arrow.vue';
 import Button from '@components/Ui/Components/Forms/Button.vue';
 import { getCollection } from 'astro:content';
-import VideoList from '@components/Ui/Components/VideoList.vue';
 
 const clients = [
     {
@@ -124,58 +123,48 @@ const clients = [
 const featuredProjects = (
     await getCollection('projects', ({ data }) => data.featured === true)
 ).sort((a, b) => a.data.order - b.data.order);
+
+const latestInsights = (await getCollection('insights'))
+    .sort(
+        (a, b) =>
+            new Date(b.data.publishedDate).getTime() -
+            new Date(a.data.publishedDate).getTime()
+    )
+    .slice(0, 3);
+
+const formatDate = (date: string | Date) =>
+    new Intl.DateTimeFormat('en-AU', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    }).format(new Date(date));
 ---
 
 <Layout title="Proline">
     <Content>
-        <section class="flex flex-col items-center gap-12 py-24 md:py-32">
-            <h3>Collaborating with the nation’s largest builders</h3>
+        <section class="flex flex-col items-center gap-8 py-16 md:py-20">
+            <h3 class="max-w-md text-center">
+                Collaborating with the nation’s largest builders
+            </h3>
             <div
-                class="grid grid-cols-2 gap-5 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-10"
+                class="relative left-1/2 grid w-full -translate-x-1/2 grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4 lg:w-[calc(100vw-6rem)] lg:max-w-[144rem] lg:grid-cols-10 lg:gap-4"
             >
-                <!-- {
-                    clients.map(client => (
-                        <div class="flex items-center justify-center">
-                            <img src={client.image} alt={client.name} />
+                {
+                    clients.map((client, index) => (
+                        <div
+                            class:list={[
+                                'flex aspect-[4/3] min-h-0 min-w-0 items-center justify-center overflow-hidden border border-white/10 bg-white/[0.03] p-3 transition-colors duration-300 hover:bg-white/[0.07] md:p-4',
+                                index === 20 && 'lg:col-start-2',
+                            ]}
+                        >
+                            <img
+                                src={client.image}
+                                alt={client.name}
+                                loading="lazy"
+                                class="h-12 w-[82%] object-contain md:h-14 lg:h-16"
+                            />
                         </div>
                     ))
-                } -->
-                {
-                    (() => {
-                        const columns = 10;
-                        const fullRows = Math.floor(clients.length / columns);
-                        const lastRowCount = clients.length % columns;
-                        const fullRowItems = clients.slice(
-                            0,
-                            fullRows * columns
-                        );
-                        const lastRowItems = clients.slice(fullRows * columns);
-
-                        return [
-                            fullRowItems.map(client => (
-                                <div class="flex min-h-24 items-center justify-center border border-white/10 bg-white/[0.03] p-4 transition-colors duration-300 hover:bg-white/[0.07]">
-                                    <img
-                                        src={client.image}
-                                        alt={client.name}
-                                        class="max-h-20 object-contain"
-                                    />
-                                </div>
-                            )),
-                            lastRowCount > 0 && (
-                                <div class="col-span-full grid grid-cols-2 justify-center gap-5 md:flex">
-                                    {lastRowItems.map(client => (
-                                        <div class="flex min-h-24 min-w-28 items-center justify-center border border-white/10 bg-white/[0.03] p-4 transition-colors duration-300 hover:bg-white/[0.07]">
-                                            <img
-                                                src={client.image}
-                                                alt={client.name}
-                                                class="max-h-20 object-contain"
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            ),
-                        ];
-                    })()
                 }
             </div>
         </section>
@@ -299,7 +288,71 @@ const featuredProjects = (
             </div>
         </section>
 
-        <VideoList client:load />
+        <section class="w-full py-20 md:py-28">
+            <div class="mb-10 flex items-end justify-between gap-6 border-b border-white/15 pb-6">
+                <div class="space-y-3">
+                    <p class="font-khand text-sm font-semibold uppercase tracking-[0.2em] text-proline-red">
+                        News &amp; updates
+                    </p>
+                    <h2 class="text-white">Latest insights</h2>
+                </div>
+                <a
+                    href="/insights"
+                    class="group hidden items-center gap-3 font-khand text-lg font-semibold text-white transition-colors duration-300 hover:text-proline-red sm:flex"
+                >
+                    View all insights
+                    <Arrow class:list="transition-transform duration-300 group-hover:translate-x-2" />
+                </a>
+            </div>
+
+            <div
+                class:list={[
+                    'grid gap-8 md:grid-cols-2',
+                    latestInsights.length >= 3 && 'lg:grid-cols-3',
+                ]}
+            >
+                {
+                    latestInsights.map(insight => (
+                        <article class="group border border-white/10 bg-white/[0.025] transition-colors duration-300 hover:bg-white/[0.05]">
+                            <a href={`/insights/${insight.slug}/`} class="block h-full">
+                                <div class="aspect-[16/10] overflow-hidden bg-black">
+                                    <img
+                                        src={insight.data.featuredImage}
+                                        alt={insight.data.title}
+                                        loading="lazy"
+                                        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                                    />
+                                </div>
+                                <div class="border-t border-proline-red p-6 md:p-7">
+                                    <div class="mb-4 flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase tracking-[0.14em] text-white/55">
+                                        <span class="text-proline-red">
+                                            {insight.data.category}
+                                        </span>
+                                        <time datetime={String(insight.data.publishedDate)}>
+                                            {formatDate(insight.data.publishedDate)}
+                                        </time>
+                                    </div>
+                                    <h3 class="text-white">{insight.data.title}</h3>
+                                    <p class="mt-4">{insight.data.description}</p>
+                                    <span class="mt-6 inline-flex items-center gap-3 font-khand text-lg font-semibold text-proline-red">
+                                        Read full story
+                                        <Arrow class="transition-transform duration-300 group-hover:translate-x-2" />
+                                    </span>
+                                </div>
+                            </a>
+                        </article>
+                    ))
+                }
+            </div>
+
+            <a
+                href="/insights"
+                class="group mt-8 flex items-center justify-center gap-3 border border-white/20 px-6 py-4 font-khand text-lg font-semibold text-white transition-colors duration-300 hover:border-proline-red hover:text-proline-red sm:hidden"
+            >
+                View all insights
+                <Arrow class:list="transition-transform duration-300 group-hover:translate-x-2" />
+            </a>
+        </section>
 
         <section class="grid gap-10 pt-20 md:grid-cols-2">
             <div class="order-last md:order-first">
