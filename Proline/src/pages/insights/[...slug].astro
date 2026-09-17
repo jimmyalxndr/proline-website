@@ -147,6 +147,55 @@ const formatDate = (date: string | Date) =>
         border: 0;
     }
 
+    .insight-prose :global(.article-video-lite button) {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        border: 0;
+        padding: 0;
+        background: #000;
+    }
+
+    .insight-prose :global(.article-video-lite img) {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 180ms ease, transform 400ms ease;
+    }
+
+    .insight-prose :global(.article-video-lite button:hover img) {
+        opacity: 0.82;
+        transform: scale(1.015);
+    }
+
+    .insight-prose :global(.article-video-play) {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: grid;
+        width: 5rem;
+        height: 5rem;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 999px;
+        background: #d64829;
+        color: #fff;
+        font-size: 1.5rem;
+        line-height: 1;
+        padding-left: 0.2rem;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+        transition: background-color 180ms ease, transform 180ms ease;
+    }
+
+    .insight-prose :global(.article-video-lite button:hover .article-video-play) {
+        background: #ef4d2c;
+        transform: translate(-50%, -50%) scale(1.06);
+    }
+
     .insight-prose :global(.media-caption) {
         margin-top: 0.75rem;
         color: rgba(255, 255, 255, 0.55);
@@ -173,3 +222,23 @@ const formatDate = (date: string | Date) =>
         }
     }
 </style>
+
+<script>
+    document.querySelectorAll<HTMLElement>('.article-video-lite').forEach(player => {
+        const button = player.querySelector('button');
+        const videoId = player.dataset.youtubeId;
+        const title = player.dataset.youtubeTitle || 'YouTube video';
+
+        button?.addEventListener('click', () => {
+            if (!videoId) return;
+
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`;
+            iframe.title = title;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+            iframe.allowFullscreen = true;
+            player.replaceChildren(iframe);
+        }, { once: true });
+    });
+</script>
