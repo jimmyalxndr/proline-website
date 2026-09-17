@@ -317,7 +317,7 @@ const formatDate = (date: string | Date) =>
                     latestInsights.map(insight => (
                         <article class="group border border-white/10 bg-white/[0.025] transition-colors duration-300 hover:bg-white/[0.05]">
                             <a href={`/insights/${insight.slug}/`} class="block h-full">
-                                <div class="aspect-[16/10] overflow-hidden bg-black">
+                                <div class="aspect-video overflow-hidden bg-black">
                                     <img
                                         src={insight.data.featuredImage}
                                         alt={insight.data.title}
