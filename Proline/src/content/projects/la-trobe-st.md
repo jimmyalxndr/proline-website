@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 10
 featured: false
 completed: true
 title: La Trobe St

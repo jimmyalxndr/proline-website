@@ -1,5 +1,5 @@
 ---
-order: 9
+order: 11
 featured: true
 completed: true
 title: Methodist Ladies’ College Aquatic Centre

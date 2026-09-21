@@ -1,5 +1,5 @@
 ---
-order: 16
+order: 18
 featured: false
 completed: false
 title: NEXTDC M3 Data Centre

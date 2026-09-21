@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 2
 featured: false
 completed: true
 title: Ivanhoe
