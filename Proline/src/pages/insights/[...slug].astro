@@ -133,6 +133,12 @@ const formatDate = (date: string | Date) =>
         margin: 3rem 0;
     }
 
+    .insight-prose :global(.article-image-portrait) {
+        max-width: 36rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
     .insight-prose :global(.article-video) {
         aspect-ratio: 16 / 9;
         width: 100%;
@@ -201,6 +207,10 @@ const formatDate = (date: string | Date) =>
         color: rgba(255, 255, 255, 0.55);
         font-size: 0.82rem;
         line-height: 1.5;
+    }
+
+    .insight-prose :global(.media-caption-centred) {
+        text-align: center;
     }
 
     .insight-prose :global(.article-gallery) {

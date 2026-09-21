@@ -18,8 +18,8 @@ additionalImages:
     - /assets/content/projects/crowne-plaza-carlton/9-web.jpg
 ---
 
-Crowne Plaza Carlton showcases Proline’s ability to deliver bespoke architectural façades through a fully integrated in-house process.
+Crowne Plaza Carlton showcases Proline’s ability to deliver bespoke architectural facades through a fully integrated in-house process.
 
-Featuring a custom metal panel system, the project involved extensive design coordination, engineering input, shop detailing, CNC cutting, fabrication, folding and installation. By controlling every stage of the process, the team was able to refine the façade solution from initial concept through to final delivery, achieving a premium architectural finish on one of Melbourne’s most prominent streets.
+Featuring a custom metal panel system, the project involved extensive design coordination, engineering input, shop detailing, CNC cutting, fabrication, folding and installation. By controlling every stage of the process, the team was able to refine the facade solution from initial concept through to final delivery, achieving a premium architectural finish on one of Melbourne’s most prominent streets.
 
-The completed façade provides a striking visual statement while reflecting the expertise, innovation and manufacturing capability that continue to drive Proline’s approach to complex architectural projects.
+The completed facade provides a striking visual statement while reflecting the expertise, innovation and manufacturing capability that continue to drive Proline’s approach to complex architectural projects.

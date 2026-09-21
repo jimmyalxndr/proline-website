@@ -3,7 +3,7 @@ order: 2
 featured: true
 completed: true
 title: Botanica
-featuredSubtext: HACER – Richmond, VIC
+featuredSubtext: HACER, Richmond, VIC
 featuredImage: /assets/content/projects/botanica/featured.jpg
 additionalImages:
     - /assets/content/projects/botanica/1.jpg
