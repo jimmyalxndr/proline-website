@@ -33,6 +33,7 @@ const next =
     ];
 
 const pageTitle = project?.data?.title;
+const videoBelowContent = project.data?.videoBelowContent === true;
 // const renderer = new marked.Renderer();
 ---
 
@@ -54,22 +55,31 @@ const pageTitle = project?.data?.title;
         <div
             class:list={[
                 'mt-10',
-                project.data?.featuredVideo &&
+                project.data?.featuredVideo && !videoBelowContent &&
                     'grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)] lg:gap-16',
             ]}
         >
             {
-                project.data?.featuredVideo ? (
-                <iframe
-                    src={project.data.featuredVideo}
-                    width="100%"
-                    title={`${project.data.title} project video`}
-                    loading="lazy"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-                    allowfullscreen
-                    class="aspect-video w-full border-0"
-                />
+                project.data?.featuredVideo && !videoBelowContent ? (
+                <div>
+                    {
+                        project.data.videoLabel && (
+                            <p class="mb-3 font-khand text-sm font-semibold uppercase tracking-[0.16em] text-proline-red">
+                                {project.data.videoLabel}
+                            </p>
+                        )
+                    }
+                    <iframe
+                        src={project.data.featuredVideo}
+                        width="100%"
+                        title={`${project.data.title} project video`}
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                        allowfullscreen
+                        class="aspect-video w-full border-0"
+                    />
+                </div>
                 ) : (
                     <img
                         src={project.data.featuredImage}
@@ -82,7 +92,7 @@ const pageTitle = project?.data?.title;
             <div
                 class:list={[
                     'max-w-xl space-y-5',
-                    project.data?.featuredVideo ? 'py-4' : 'my-20',
+                    project.data?.featuredVideo && !videoBelowContent ? 'py-4' : 'my-20',
                 ]}
             >
                 <h1 class="font-khand text-3xl font-bold md:text-4xl">
@@ -108,7 +118,7 @@ const pageTitle = project?.data?.title;
 
         <div class="mt-20 grid gap-5 pb-20 md:grid-cols-2 lg:grid-cols-3">
             {
-                project.data.featuredImage && (
+                project.data.featuredImage && !videoBelowContent && (
                     <div class="odd:lg:col-span-2">
                         <img
                             src={project.data.featuredImage}
@@ -131,6 +141,35 @@ const pageTitle = project?.data?.title;
                 ))
             }
         </div>
+
+        {
+            project.data.featuredVideo && videoBelowContent && (
+                <section class="mb-20 border-t border-white/15 pt-12">
+                    <div class="mb-7 max-w-3xl space-y-3">
+                        {
+                            project.data.videoLabel && (
+                                <h2 class="text-white">{project.data.videoLabel}</h2>
+                            )
+                        }
+                        {
+                            project.data.videoContext && (
+                                <p>{project.data.videoContext}</p>
+                            )
+                        }
+                    </div>
+                    <iframe
+                        src={project.data.featuredVideo}
+                        width="100%"
+                        title={`${project.data.title} project announcement video`}
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                        allowfullscreen
+                        class="aspect-video w-full border-0"
+                    />
+                </section>
+            )
+        }
 
         <div
             class="my-20 flex justify-between border-t border-proline-red py-10"

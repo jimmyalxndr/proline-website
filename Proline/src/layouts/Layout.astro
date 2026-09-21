@@ -21,6 +21,23 @@ const {
 const siteName = 'Proline';
 const isHomePage = home;
 const socialImage = new URL(image, Astro.site ?? Astro.url.origin);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://prolinegroup.au');
+const organisationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Proline',
+    url: 'https://prolinegroup.au/',
+    telephone: '+61 3 9510 7257',
+    email: 'info@prolinegroup.au',
+    address: {
+        '@type': 'PostalAddress',
+        streetAddress: '30 Robbins Cct',
+        addressLocality: 'Williamstown North',
+        addressRegion: 'VIC',
+        postalCode: '3016',
+        addressCountry: 'AU',
+    },
+};
 let pageTitle = title;
 if (!isHomePage) {
     pageTitle = `${title} | ${siteName}`;
@@ -38,8 +55,9 @@ if (!isHomePage) {
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={Astro.url} />
+        <meta property="og:url" content={canonicalURL} />
         <meta property="og:image" content={socialImage} />
+        <link rel="canonical" href={canonicalURL} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
@@ -59,6 +77,7 @@ if (!isHomePage) {
             )
         }
         <meta name="generator" content={Astro.generator} />
+        <script type="application/ld+json" set:html={JSON.stringify(organisationSchema)} />
         <title>{pageTitle}</title>
         <Webfonts />
         <!-- Google Tag Manager -->
