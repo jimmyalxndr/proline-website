@@ -5,7 +5,6 @@ completed: false
 title: Melton Hospital
 featuredSubtext: Lendlease, Melton, VIC
 featuredImage: /assets/content/projects/melton-hospital/featured-web.jpg
-featuredVideo: https://www.youtube.com/embed/fReOHUTd14c?rel=0&playsinline=1
 additionalImages:
     - /assets/content/projects/melton-hospital/1-web.jpg
     - /assets/content/projects/melton-hospital/2-web.jpg
