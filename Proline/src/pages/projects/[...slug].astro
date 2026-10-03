@@ -21,16 +21,9 @@ const project = (await getEntry(
     'projects',
     Astro.params.slug as string
 )) as CollectionEntry<'projects'>;
-console.log(projects.length);
-const previous =
-    projects[
-        project.data.order === 0 ? projects.length - 1 : project.data.order - 1
-    ];
-
-const next =
-    projects[
-        project.data.order === projects.length - 1 ? 0 : project.data.order + 1
-    ];
+const currentIndex = projects.findIndex(entry => entry.slug === project.slug);
+const previous = projects[(currentIndex - 1 + projects.length) % projects.length];
+const next = projects[(currentIndex + 1) % projects.length];
 
 const pageTitle = project?.data?.title;
 const videoBelowContent = project.data?.videoBelowContent === true;
