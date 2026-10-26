@@ -51,7 +51,7 @@ const formData: FormType = {
         },
     ],
     button: {
-        label: 'Book walkthrough',
+        label: 'Enquire about a walkthrough',
     },
 };
 </script>
@@ -60,7 +60,7 @@ const formData: FormType = {
     <div class="w-full">
         <FormComponent :formData="formData" class="w-full" />
         <p class="mt-6 text-sm">
-            We use these details to arrange the visit.
+            We review each enquiry and reply if a visit suits.
             <a href="/privacy-policy" class="underline hover:text-proline-red">
                 Privacy policy
             </a>
