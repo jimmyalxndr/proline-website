@@ -4,7 +4,7 @@ import type { FormType } from 'types';
 import FormComponent from '@components/Ui/Components/Forms/Form.vue';
 
 const formData: FormType = {
-    action: '/sent',
+    action: '/factory-walkthrough/sent',
     name: 'factory-walkthrough',
     method: 'POST',
     service: 'netlify',
@@ -60,7 +60,7 @@ const formData: FormType = {
     <div class="w-full">
         <FormComponent :formData="formData" class="w-full" />
         <p class="mt-6 text-sm">
-            We review each enquiry and reply if a visit suits.
+            We use these details for this enquiry.
             <a href="/privacy-policy" class="underline hover:text-proline-red">
                 Privacy policy
             </a>
