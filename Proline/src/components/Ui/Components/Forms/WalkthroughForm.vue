@@ -51,7 +51,7 @@ const formData: FormType = {
         },
     ],
     button: {
-        label: 'Send an enquiry',
+        label: 'Enquire about a walkthrough',
     },
 };
 </script>
