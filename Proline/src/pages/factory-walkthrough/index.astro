@@ -1,0 +1,71 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+import WalkthroughForm from '@components/Ui/Components/Forms/WalkthroughForm.vue';
+
+const pageTitle = 'Enquire about a walkthrough';
+const pageDescription =
+    'Enquire about a walkthrough of the Proline Fabrication factory at 30 Robbins Circuit, Williamstown North.';
+---
+
+<Layout title={pageTitle} description={pageDescription} noindex>
+    <Content data-no-scroll-reveal class="pb-16 pt-4 md:pb-24 md:pt-10">
+        <section class="grid items-start gap-5 lg:grid-cols-2 lg:gap-16">
+            <div class="contents lg:block lg:max-w-xl lg:space-y-5">
+                <div class="order-1 space-y-3 lg:space-y-5">
+                    <h3>Proline Fabrication</h3>
+                    <h1
+                        class="font-khand text-3xl font-semibold leading-[0.95] tracking-tight text-white md:text-5xl"
+                    >
+                        See how the work comes together.
+                    </h1>
+                    <p
+                        class="text-sm leading-snug lg:text-base lg:leading-normal"
+                    >
+                        Send an enquiry for a walkthrough of the factory at 30
+                        Robbins Circuit, Williamstown North.
+                    </p>
+                </div>
+                <div class="order-3 border-l border-proline-red pl-6 text-sm">
+                    <a
+                        href="https://www.google.com/maps/search/?api=1&query=30+Robbins+Circuit,+Williamstown+North+VIC+3016"
+                        class="block hover:text-proline-red"
+                    >
+                        30 Robbins Circuit, Williamstown North VIC 3016
+                    </a>
+                    <a
+                        href="tel:+61395107257"
+                        class="mt-2 block hover:text-proline-red"
+                    >
+                        03 9510 7257
+                    </a>
+                </div>
+            </div>
+
+            <div class="order-2 lg:order-none">
+                <WalkthroughForm />
+            </div>
+        </section>
+    </Content>
+</Layout>
+
+<style>
+    :global(#form-factory-walkthrough) {
+        gap: 0.65rem;
+    }
+
+    :global(#form-factory-walkthrough input:not([type='hidden'])) {
+        min-height: 2.75rem;
+        font-size: 1rem;
+    }
+
+    :global(#form-factory-walkthrough button) {
+        width: 100%;
+    }
+
+    @media (min-width: 1024px) {
+        :global(#form-factory-walkthrough button) {
+            width: auto;
+        }
+    }
+</style>

@@ -1,0 +1,31 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Content from '@layouts/partials/Content.astro';
+
+const pageTitle = 'Enquiry received';
+const pageDescription =
+    'We have your enquiry for a walkthrough of the Proline Fabrication factory.';
+---
+
+<Layout title={pageTitle} description={pageDescription} noindex>
+    <Content class="py-16 md:py-28" data-no-scroll-reveal>
+        <div class="max-w-xl space-y-6">
+            <h3>Proline Fabrication</h3>
+            <h1
+                class="font-khand text-5xl font-semibold leading-[0.95] tracking-tight text-white md:text-7xl"
+            >
+                Thanks for sending it through.
+            </h1>
+            <p class="text-lg leading-snug">
+                We've got your enquiry for a walkthrough of the factory. We'll
+                look it over.
+            </p>
+            <a
+                href="/factory-walkthrough"
+                class="inline-block text-proline-red underline"
+            >
+                Back to the shop page
+            </a>
+        </div>
+    </Content>
+</Layout>
