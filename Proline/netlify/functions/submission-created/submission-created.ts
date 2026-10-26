@@ -6,6 +6,33 @@ import { Attachment, ServerClient } from 'postmark';
 // Initialise the Postmark client.
 const postmark = new ServerClient(process.env.POSTMARK_API_KEY || '');
 
+// Test seam. Production still sends through the Postmark client above.
+export const outboundMail = {
+    sendEmail: (message: Parameters<ServerClient['sendEmail']>[0]) =>
+        postmark.sendEmail(message),
+};
+
+// Recipients that differ from EMAIL_TO. The address is not a secret.
+// Netlify env names cannot contain hyphens, so factory-walkthrough cannot
+// use FACTORY-WALKTHROUGH_EMAIL_TO. FACTORY_WALKTHROUGH_EMAIL_TO still overrides this.
+const FORM_RECIPIENTS: Record<string, string> = {
+    'factory-walkthrough': 'sales@prolinefab.com.au',
+};
+
+function formRecipientOverrideKey(formName: string): string {
+    const prefix = formName.toUpperCase().replace(/[^A-Z0-9]+/g, '_');
+    return `${prefix}_EMAIL_TO`;
+}
+
+function resolveToEmail(formName: string): string | undefined {
+    return (
+        process.env[formRecipientOverrideKey(formName)] ||
+        FORM_RECIPIENTS[formName.toLowerCase()] ||
+        process.env[`${formName.toUpperCase()}_EMAIL_TO`] ||
+        process.env.EMAIL_TO
+    );
+}
+
 /**
  * Sends an email, ran by the submission-created event trigger in Netlify.
  * For more info, see:
@@ -43,9 +70,7 @@ export const handler: Handler = async function (event: HandlerEvent) {
         process.env[`${formName.toUpperCase()}_EMAIL_FROM`] ||
         process.env?.EMAIL_FROM ||
         fallbackFromEmail;
-    const toEmail =
-        process.env[`${formName.toUpperCase()}_EMAIL_TO`] ||
-        process.env?.EMAIL_TO;
+    const toEmail = resolveToEmail(formName);
     const subject =
         process.env[`${formName.toUpperCase()}_EMAIL_SUBJECT`] ||
         process.env?.EMAIL_SUBJECT ||
@@ -108,7 +133,7 @@ export const handler: Handler = async function (event: HandlerEvent) {
 
     // Send the email using Postmark.
     try {
-        await postmark.sendEmail(message);
+        await outboundMail.sendEmail(message);
     } catch (error: any) {
         // Log and return an error.
         console.error('Error sending email: ', error);
@@ -172,7 +197,7 @@ export const handler: Handler = async function (event: HandlerEvent) {
 
     // Send the email using Postmark.
     try {
-        await postmark.sendEmail(messageToUser);
+        await outboundMail.sendEmail(messageToUser);
         return { statusCode: 200 };
     } catch (error: any) {
         // Log and return an error.
