@@ -9,20 +9,24 @@ const pageDescription =
 ---
 
 <Layout title={pageTitle} description={pageDescription} noindex>
-    <Content data-no-scroll-reveal class="pb-16 pt-6 md:pb-24 md:pt-10">
-        <section class="grid items-start gap-8 lg:grid-cols-2 lg:gap-16">
-            <div class="order-2 max-w-xl space-y-5 lg:order-1">
-                <h3>Proline Fabrication</h3>
-                <h1
-                    class="font-khand text-4xl font-semibold leading-tight tracking-tight text-white md:text-5xl"
-                >
-                    See how the work comes together.
-                </h1>
-                <p>
-                    Send an enquiry for a walkthrough of the factory at 30
-                    Robbins Circuit, Williamstown North.
-                </p>
-                <div class="border-l border-proline-red pl-6 text-sm">
+    <Content data-no-scroll-reveal class="pb-16 pt-4 md:pb-24 md:pt-10">
+        <section class="grid items-start gap-5 lg:grid-cols-2 lg:gap-16">
+            <div class="contents lg:block lg:max-w-xl lg:space-y-5">
+                <div class="order-1 space-y-3 lg:space-y-5">
+                    <h3>Proline Fabrication</h3>
+                    <h1
+                        class="font-khand text-3xl font-semibold leading-[0.95] tracking-tight text-white md:text-5xl"
+                    >
+                        See how the work comes together.
+                    </h1>
+                    <p
+                        class="text-sm leading-snug lg:text-base lg:leading-normal"
+                    >
+                        Send an enquiry for a walkthrough of the factory at 30
+                        Robbins Circuit, Williamstown North.
+                    </p>
+                </div>
+                <div class="order-3 border-l border-proline-red pl-6 text-sm">
                     <a
                         href="https://www.google.com/maps/search/?api=1&query=30+Robbins+Circuit,+Williamstown+North+VIC+3016"
                         class="block hover:text-proline-red"
@@ -38,7 +42,7 @@ const pageDescription =
                 </div>
             </div>
 
-            <div class="order-1 lg:order-2">
+            <div class="order-2 lg:order-none">
                 <WalkthroughForm />
             </div>
         </section>
