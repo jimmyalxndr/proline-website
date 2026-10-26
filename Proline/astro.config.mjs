@@ -18,6 +18,7 @@ export default defineConfig({
         sitemap({
             filter: page =>
                 page !== `${site}/404/` &&
+                page !== `${site}/factory-walkthrough/` &&
                 page !== `${site}sent/` &&
                 page !== `${site}first-look/`,
         }),
